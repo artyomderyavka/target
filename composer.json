@@ -9,8 +9,5 @@
   },
   "classmap": [
     ""
-  ],
-  "config": {
-    "vendor-dir": "../../vendor"
-  }
+  ]
 }
