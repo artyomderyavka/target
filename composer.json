@@ -1,0 +1,16 @@
+{
+  "require": {
+    "artyomderyavka/fast-micro-kernel": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "Target\\" : ""
+    }
+  },
+  "classmap": [
+    ""
+  ],
+  "config": {
+    "vendor-dir": "../../vendor"
+  }
+}
