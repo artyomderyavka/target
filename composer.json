@@ -1,4 +1,16 @@
 {
+  "name": "artyomderyavka/target",
+  "type": "project",
+  "authors": [
+    {
+      "name": "Artyom Deryavka",
+      "email": "artyom.deryavka@together.com"
+    },
+    {
+      "name": "Alexander Dunaev",
+      "email": "alexander.dunaev@together.com"
+    }
+  ],
   "require": {
     "artyomderyavka/fast-micro-kernel": "dev-master",
     "artyomderyavka/content": "dev-master"
