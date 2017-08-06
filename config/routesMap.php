@@ -5,9 +5,6 @@
  * Time: 14:01
  */
 
-$routesMap = [
-    'cacheFile' => $projectDir . '/var/cache/route.cache', /* required */
-    'routes' => [
-        ['routesFilePath' => $projectDir . '/config/routes.yml', 'routesPrefix' => ''],  /*project micro-service*/
-    ]
-];
+$routesMap = array_merge($routesMap, [
+    ['routesFilePath' => __DIR__ . '/routes.yml', 'routesPrefix' => $routesPrefix],  /*project micro-service*/
+]);

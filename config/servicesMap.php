@@ -5,9 +5,8 @@
  * Time: 13:21
  */
 
-$servicesMap = [
-    'cachedContainerFile' => $projectDir .'/var/cache/container.php',
-    'servicesFiles' => [
-        'config/services.yml',                         /*project micro-service*/
-    ]
-];
+$pathFromProjectDir = str_replace($projectDir . "/", "", __DIR__);
+
+$servicesMap = array_merge($servicesMap, [
+    (!empty($pathFromProjectDir) ? $pathFromProjectDir . "/" : "") . 'services.yml',
+]);

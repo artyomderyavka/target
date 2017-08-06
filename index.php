@@ -1,20 +1,14 @@
 <?php
-$projectDir =  __DIR__;
-require_once $projectDir . "/vendor/autoload.php";
-require_once $projectDir . "/config/constants.php";
-if (DEBUG) {
-    error_reporting(E_ALL);
-    ini_set('display_errors', 1);
+require_once "bootstrap.php";
+
+if (CONTENT_SERVICE_CLIENT_TRANSPORT === 'local') {
+    require_once $vendorDir . "/artyomderyavka/content/bootstrap.local.php";
 }
 
-require_once $projectDir . "/config/routesMap.php";
-require_once $projectDir . "/config/servicesMap.php";
-
-$cachedContainerFile = $servicesMap['cachedContainerFile'];
-$servicesFiles = $servicesMap['servicesFiles'];
-
+$cachedContainerFile = $projectDir . DI_CONTAINER_CACHE_FILE;
 //@todo - add checking of included configuration. Throw invalid configuration exception on error
 
+//@todo - move container building into kernel
 if (file_exists($cachedContainerFile)) {
     require_once $cachedContainerFile;
     $container = new ProjectServiceContainer();
@@ -22,7 +16,7 @@ if (file_exists($cachedContainerFile)) {
     $locator = new \Symfony\Component\Config\FileLocator($projectDir);
     $container = new \Symfony\Component\DependencyInjection\ContainerBuilder();
     $containerLoader = new \Symfony\Component\DependencyInjection\Loader\YamlFileLoader($container, $locator);
-    foreach ($servicesFiles as $file) {
+    foreach ($servicesMap as $file) {
         $containerLoader->load($file);
     }
     $container->compile();
@@ -30,6 +24,12 @@ if (file_exists($cachedContainerFile)) {
     $dumper = new \Symfony\Component\DependencyInjection\Dumper\PhpDumper($container);
     file_put_contents($cachedContainerFile, $dumper->dump());
 }
+
+//@todo - rename routes map parameter to routes config
+$routesMap = [
+    'cacheFile' => $projectDir . ROUTES_CACHE_FILE,
+    'routes' => $routesMap
+];
 
 \FastMicroKernel\Components\App::run(
     $routesMap,
